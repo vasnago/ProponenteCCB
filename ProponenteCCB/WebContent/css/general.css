@@ -18,3 +18,15 @@
 .center {
 	text-align: center;
 }
+
+.requirido {
+	color: #FF0000; /*Rojo*/
+	padding-left: 2px;
+}
+
+.login {
+	width: 50%;
+	display: block;
+	text-align: center;
+	margin-left: 25%;
+}

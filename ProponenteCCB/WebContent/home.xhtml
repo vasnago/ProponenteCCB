@@ -11,32 +11,44 @@
 	<ui:define name="body">
 
 		<h:form>
-			<p:panel header="Login" id="panelLogin">
-				<t:fieldset>
-					<h:panelGrid columns="2">
-						<h:outputText value="Usuario:" />
-						<p:inputText maxlength="50" id="txtNombreUsuario"
-							value="#{usuariosAction.nombreUsuario}" required="true"
-							requiredMessage="Este Campo Es Requerido">
-							<f:validateLength maximum="50" />
-						</p:inputText>
+			<div class="center">
+				<p:panel header="Login" id="panelLogin" styleClass="login">
+					<t:fieldset>
+						<h:panelGrid columns="4">
+							<h:outputText value="Usuario:" />
+							<h:outputText value="*" styleClass="requirido" />
+							<p:inputText maxlength="50" id="txtNombreUsuario"
+								value="#{usuariosAction.nombreUsuario}" required="true"
+								requiredMessage="Este Campo Es Requerido">
+								<f:validateLength maximum="50" />
+							</p:inputText>
+							<p:message for="txtNombreUsuario" />
 
-						<h:outputText value="Contraseña:" />
-						<p:inputText maxlength="50" id="txtClave"
-							value="#{usuariosAction.password}" required="true"
-							requiredMessage="Este Campo Es Requerido">
-							<f:validateLength maximum="50" />
-						</p:inputText>
+							<h:outputText value="Contraseña:" />
+							<h:outputText value="*" styleClass="requirido" />
+							<p:inputText maxlength="50" id="txtClave"
+								value="#{usuariosAction.password}" required="true"
+								requiredMessage="Este Campo Es Requerido">
+								<f:validateLength maximum="50" />
+							</p:inputText>
+							<p:message for="txtClave" />
 
-					</h:panelGrid>
-				</t:fieldset>
-				<br />
-				<div align="center">
-					<p:commandButton action="#{usuariosAction.validarUsuario()}"
-						value="Ingresar" icon="fa fa-sign-in-alt">
-					</p:commandButton>
-				</div>
-			</p:panel>
+						</h:panelGrid>
+						<br />
+						<div align="center">
+							<p:commandButton action="#{usuariosAction.validarUsuario()}"
+								value="Ingresar" icon="fa fa-sign-in-alt" update="panelLogin">
+							</p:commandButton>
+						</div>
+					</t:fieldset>
+					<br />
+					<t:fieldset>
+						<h:outputText value="No Tienes Usuario?" />
+					</t:fieldset>
+
+
+				</p:panel>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

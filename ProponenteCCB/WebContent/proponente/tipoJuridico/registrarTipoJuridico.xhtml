@@ -46,15 +46,17 @@
 
 				<br />
 				<div class="center inBlock">
-					<p:commandButton value="Guardar TipoJuridico" update="pnlTJuridico"
-						action="#{tipoJuridicoAction.guardarTipoJuridico()}">
+					<p:commandButton value="Guardar" update="pnlTJuridico"
+						action="#{tipoJuridicoAction.guardarTipoJuridico()}"
+						icon="fa fa-save">
 						<p:confirm header="Confirmacion" message="Esta Seguro?"
 							icon="fa fa-question-circle" />
 					</p:commandButton>
 
 					<h:outputText value="&nbsp;&nbsp;&nbsp;" />
 					<p:commandButton value="Cancelar" immediate="true"
-						action="#{tipoJuridicoAction.consultarTipoJuridico()}" />
+						action="#{tipoJuridicoAction.consultarTipoJuridico()}"
+						icon="fa fa-ban" />
 				</div>
 			</p:panel>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

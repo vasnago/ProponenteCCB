@@ -17,7 +17,7 @@
 					<legend class="etiquetaTitulo">Datos Basicos</legend>
 					<h:panelGrid columns="4">
 						<h:outputText value="Registro" />
-						<h:outputText value="*" />
+						<h:outputText value="*" styleClass="requirido" />
 						<p:inputText maxlength="50" id="txtRegistro"
 							value="#{proponenteAction.proponente.registro}" required="true"
 							requiredMessage="Este Campo Es Requerido">
@@ -26,7 +26,7 @@
 						<p:message for="txtRegistro" />
 
 						<h:outputText value="Nit" />
-						<h:outputText value="*" />
+						<h:outputText value="*" styleClass="requirido" />
 						<p:inputText maxlength="100" id="txtNit"
 							value="#{proponenteAction.proponente.nit}" required="true"
 							requiredMessage="Este Campo Es Requerido">
@@ -35,7 +35,7 @@
 						<p:message for="txtNit" />
 
 						<h:outputText value="Nombre" />
-						<h:outputText value="*" />
+						<h:outputText value="*" styleClass="requirido" />
 						<p:inputText maxlength="100" id="txtNombre"
 							value="#{proponenteAction.proponente.nombre}" required="true"
 							requiredMessage="Este Campo Es Requerido">
@@ -44,27 +44,30 @@
 						<p:message for="txtNombre" />
 
 						<h:outputText value="Estado" />
-						<h:outputText value="*" />
-						<p:inputText maxlength="100" id="txtEstado"
+						<h:outputText value="*" styleClass="requirido" />
+						<p:selectOneMenu id="cmbEstado"
 							value="#{proponenteAction.proponente.estado}" required="true"
-							requiredMessage="Este Campo Es Requerido">
-							<f:validateLength maximum="100" />
-						</p:inputText>
-						<p:message for="txtEstado" />
+							requiredMessage="Este Campo Es Requerido">>
+							<f:selectItem itemLabel="Seleccionar" itemValue="" />
+							<f:selectItem itemLabel="Activo" itemValue="A" />
+							<f:selectItem itemLabel="Inactivo" itemValue="I" />
+							<f:selectItem itemLabel="Pendiente" itemValue="P" />
+						</p:selectOneMenu>
+						<p:message for="cmbEstado" />
 
 						<h:outputText value="Tipo Juridico" />
-						<h:outputText value="" />
+						<h:outputText value="*" styleClass="requirido" />
 						<p:selectOneMenu
 							value="#{proponenteAction.proponente.tipoJuridico.id}"
 							id="comboTipoJuridico" required="true"
 							requiredMessage="Este Campo Es Requerido">
-							<f:selectItem itemLabel="Seleccionar" itemValue="0" />
+							<f:selectItem itemLabel="Seleccionar" itemValue="" />
 							<f:selectItems value="#{proponenteAction.itemsTipoJuridico}" />
 						</p:selectOneMenu>
 						<p:message for="comboTipoJuridico" />
 
 						<h:outputText value="Matricula" />
-						<h:outputText value="*" />
+						<h:outputText value="" />
 						<p:inputText maxlength="100" id="txtMatricula"
 							value="#{proponenteAction.proponente.matricula}">
 							<f:validateLength maximum="100" />
@@ -91,14 +94,14 @@
 				<br />
 				<div class="center inBlock">
 					<p:commandButton value="Guardar" update="pnlProponente"
-						action="#{proponenteAction.guardarProponente()}">
+						action="#{proponenteAction.guardarProponente()}" icon="fa fa-save">
 						<p:confirm header="Confirmacion" message="Esta Seguro?"
 							icon="fa fa-question-circle" />
 					</p:commandButton>
 					<h:outputText value="&nbsp;&nbsp;&nbsp;" />
 					<p:commandButton value="Cancelar" update="pnlProponente"
 						action="#{proponenteAction.consultarProponentes()}"
-						immediate="true" />
+						immediate="true" icon="fa fa-ban"/>
 				</div>
 			</p:panel>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
