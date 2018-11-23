@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<h:head>
+	<title>Proponentes CCB</title>
+	<link href="#{request.contextPath}/css/primeFacesCustom.css"
+		rel="stylesheet" type="text/css" />
+	<link href="#{request.contextPath}/css/general.css" rel="stylesheet"
+		type="text/css" />
+	<h:outputStylesheet library="awesome" name="css/font-awesome.css" />
+
+</h:head>
+
+<h:body>
+	<t:saveState value="#{usuariosAction}" />
+	<ui:include src="encabezado.xhtml">
+	</ui:include>
+	<div class="menuBoard">
+		<ui:include src="menu.xhtml">
+		</ui:include>
+
+	</div>
+
+	<div class="bodyBoard">
+		<ui:insert name="body" />
+	</div>
+
+	<div>
+		<ui:include src="contenido.xhtml" />
+	</div>
+
+	<div>
+		<ui:include src="pieDePagina.xhtml" />
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/plantillas/plantilla.xhtml">
+	<ui:param name="action"
+		value="proponenteAction.registrarProponente(null)" />
+	<ui:define name="body">
+		<t:saveState value="#{proponenteAction}" />
+		<h:form id="proponenteForm">
+			<p:panel header="Registrar Proponente" id="pnlProponente">
+				<t:fieldset>
+					<legend class="etiquetaTitulo">Datos Basicos</legend>
+					<h:panelGrid columns="4">
+						<h:outputText value="Registro" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="50" id="txtRegistro"
+							value="#{proponenteAction.proponente.registro}" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:validateLength maximum="50" />
+						</p:inputText>
+						<p:message for="txtRegistro" />
+
+						<h:outputText value="Nit" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="100" id="txtNit"
+							value="#{proponenteAction.proponente.nit}" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:validateLength maximum="100" />
+						</p:inputText>
+						<p:message for="txtNit" />
+
+						<h:outputText value="Nombre" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="100" id="txtNombre"
+							value="#{proponenteAction.proponente.nombre}" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:validateLength maximum="100" />
+						</p:inputText>
+						<p:message for="txtNombre" />
+
+						<h:outputText value="Estado" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="100" id="txtEstado"
+							value="#{proponenteAction.proponente.estado}" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:validateLength maximum="100" />
+						</p:inputText>
+						<p:message for="txtEstado" />
+
+						<h:outputText value="Tipo Juridico" />
+						<h:outputText value="" />
+						<p:selectOneMenu
+							value="#{proponenteAction.proponente.tipoJuridico.id}"
+							id="comboTipoJuridico" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:selectItem itemLabel="Seleccionar" itemValue="0" />
+							<f:selectItems value="#{proponenteAction.itemsTipoJuridico}" />
+						</p:selectOneMenu>
+						<p:message for="comboTipoJuridico" />
+
+						<h:outputText value="Matricula" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="100" id="txtMatricula"
+							value="#{proponenteAction.proponente.matricula}">
+							<f:validateLength maximum="100" />
+						</p:inputText>
+						<p:message for="txtMatricula" />
+
+						<h:outputText value="Fecha Inscripcion" />
+						<h:outputText value="" />
+						<p:calendar
+							value="#{proponenteAction.proponente.fechaInscripcion}"
+							id="calFechaInscripcion" showOn="button" navigator="true">
+						</p:calendar>
+						<p:message for="calFechaInscripcion" />
+
+						<h:outputText value="Fecha Renovacion" />
+						<h:outputText value="" />
+						<p:calendar value="#{proponenteAction.proponente.fechaRenovacion}"
+							id="calFechaRenovacion" showOn="button" navigator="true">
+						</p:calendar>
+						<p:message for="calFechaRenovacion" />
+					</h:panelGrid>
+				</t:fieldset>
+
+				<br />
+				<div class="center inBlock">
+					<p:commandButton value="Guardar" update="pnlProponente"
+						action="#{proponenteAction.guardarProponente()}">
+						<p:confirm header="Confirmacion" message="Esta Seguro?"
+							icon="fa fa-question-circle" />
+					</p:commandButton>
+					<h:outputText value="&nbsp;&nbsp;&nbsp;" />
+					<p:commandButton value="Cancelar" update="pnlProponente"
+						action="#{proponenteAction.consultarProponentes()}"
+						immediate="true" />
+				</div>
+			</p:panel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+			</p:confirmDialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

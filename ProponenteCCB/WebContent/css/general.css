@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+.imagenBoard {
+	z-index: 1;
+}
+
+.menuBoard {
+	z-index: 1000;
+	position: relative;
+	margin-top: -190px;
+}
+
+.bodyBoard {
+	z-index: 500;
+	position: relative;
+}
+
+.center {
+	text-align: center;
+}

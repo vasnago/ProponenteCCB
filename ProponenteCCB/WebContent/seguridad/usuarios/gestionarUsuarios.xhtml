@@ -1,0 +1,38 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<h:head>
+</h:head>
+
+<h:body>
+	
+
+	<h:form id="usuarioForm">
+		<t:saveState value="#{usuariosAction}" />
+
+
+		<p:panel header="Lista de Usuarios" id="panelUsuario">
+			<p:dataTable value="#{usuariosAction.listaUsuarios}"
+				var="usuarioList" rowClasses="odd-row, even-row">
+				<p:column>
+					<f:facet name="header">Usuario</f:facet>
+					<h:outputText value="#{usuarioList.usuario}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Nombre</f:facet>
+					<h:outputText value="#{usuarioList.nombre}" />
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</h:body>
+</html>

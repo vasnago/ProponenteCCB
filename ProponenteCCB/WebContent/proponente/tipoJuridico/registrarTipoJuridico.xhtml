@@ -1,0 +1,69 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/plantillas/plantilla.xhtml">
+	<ui:param name="action"
+		value="tipoJuridicoAction.registrarTipoJuridico(null)" />
+
+	<ui:define name="body">
+		<t:saveState value="#{tipoJuridicoAction}"></t:saveState>
+		<h:form id="tipoJuridicoForm">
+			<p:panel header="Registrar Tipo Juridico" id="pnlTJuridico">
+				<t:fieldset>
+					<legend class="etiquetaTitulo">Datos</legend>
+					<h:panelGrid columns="4">
+
+						<h:outputText value="Nombre" />
+						<h:outputText value="*" />
+						<p:inputText maxlength="100" id="txtNombre"
+							value="#{tipoJuridicoAction.tipoJuridico.nombre}" required="true"
+							requiredMessage="Este Campo Es Requerido">
+							<f:validateLength maximum="100" />
+						</p:inputText>
+						<p:message for="txtNombre" />
+
+						<h:outputText value="Descripcion" />
+						<h:outputText value="" />
+						<p:inputTextarea id="txtDescripcion" rows="5" cols="30"
+							counter="display"
+							value="#{tipoJuridicoAction.tipoJuridico.descripcion}"
+							maxlength="500" counterTemplate="{0} Caracteres Restantes."
+							autoResize="false" required="true"
+							requiredMessage="Este Campo Es Requerido" />
+						<p:message for="txtDescripcion" />
+
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText id="display" />
+
+					</h:panelGrid>
+				</t:fieldset>
+
+				<br />
+				<div class="center inBlock">
+					<p:commandButton value="Guardar TipoJuridico" update="pnlTJuridico"
+						action="#{tipoJuridicoAction.guardarTipoJuridico()}">
+						<p:confirm header="Confirmacion" message="Esta Seguro?"
+							icon="fa fa-question-circle" />
+					</p:commandButton>
+
+					<h:outputText value="&nbsp;&nbsp;&nbsp;" />
+					<p:commandButton value="Cancelar" immediate="true"
+						action="#{tipoJuridicoAction.consultarTipoJuridico()}" />
+				</div>
+			</p:panel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+			</p:confirmDialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
