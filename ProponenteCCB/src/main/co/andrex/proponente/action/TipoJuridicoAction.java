@@ -74,7 +74,7 @@ public class TipoJuridicoAction implements Serializable {
 		} else {
 			this.tipoJuridico = new TipoJuridico();
 		}
-		return "regTipoJuridico";
+		return "regUsuario";
 	}
 
 	/**

@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import co.andrex.seguridad.entities.Usuarios;
+import co.andrex.seguridad.entities.Usuario;
 
 @Stateless
 @SuppressWarnings("serial")
@@ -18,17 +18,17 @@ public class UsuariosDao implements Serializable {
 	private EntityManager em;
 
 	@SuppressWarnings("unchecked")
-	public List<Usuarios> consultarUsuario() throws Exception {
-		Query q = em.createQuery("SELECT u FROM Usuarios u");
+	public List<Usuario> consultarUsuario() throws Exception {
+		Query q = em.createQuery("SELECT u FROM Usuario u");
 		return q.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Usuarios usuarioExiste(String nombreUsuario, String password)
+	public Usuario usuarioExiste(String nombreUsuario, String password)
 			throws Exception {
-		List<Usuarios> results = em
+		List<Usuario> results = em
 				.createQuery(
-						"FROM Usuarios u WHERE u.usuario=:nombreUsuario AND u.password = :password")
+						"FROM Usuario u WHERE u.usuario=:nombreUsuario AND u.password = :password")
 				.setParameter("nombreUsuario", nombreUsuario)
 				.setParameter("password", password).getResultList();
 		if (results.size() > 0) {
@@ -37,15 +37,15 @@ public class UsuariosDao implements Serializable {
 		return null;
 	}
 
-	public void guardarUsuario(Usuarios usuario) throws Exception {
+	public void guardarUsuario(Usuario usuario) throws Exception {
 		em.persist(usuario);
 	}
 
-	public void editarUsuario(Usuarios usuario) throws Exception {
+	public void editarUsuario(Usuario usuario) throws Exception {
 		em.merge(usuario);
 	}
 
-	public void eliminarUsuario(Usuarios usuario) throws Exception {
+	public void eliminarUsuario(Usuario usuario) throws Exception {
 		em.remove(em.merge(usuario));
 	}
 }

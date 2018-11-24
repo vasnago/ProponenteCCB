@@ -32,3 +32,9 @@
 	left: 50%;
 	margin-left: -11px;
 }
+
+.ui-button .ui-button-text {
+	display: block;
+	line-height: normal;
+	margin-left: -6px;
+}

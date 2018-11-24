@@ -11,18 +11,29 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "usuarios", schema = "public")
-public class Usuarios implements Serializable {
+@Table(name = "usuario", schema = "public")
+public class Usuario implements Serializable {
 
-	private String usuario;
+	private int id;
 	private String nombre;
+	private String correo;
+	private String usuario;
 	private String password;
 	private boolean sw_abogado;
 	private boolean sw_grabador;
 
 	@Id
-	@Column(name = "usuario", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Column(name = "usuario", length = 50, nullable = false)
 	public String getUsuario() {
 		return usuario;
 	}
@@ -31,7 +42,7 @@ public class Usuarios implements Serializable {
 		this.usuario = usuario;
 	}
 
-	@Column(name = "nombre", length = 100, nullable = false)
+	@Column(name = "nombre", length = 50, nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -40,7 +51,16 @@ public class Usuarios implements Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "clave", length = 100, nullable = false)
+	@Column(name = "correo", length = 50, nullable = false)
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	@Column(name = "password", length = 10, nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -71,6 +91,8 @@ public class Usuarios implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((correo == null) ? 0 : correo.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
@@ -88,7 +110,14 @@ public class Usuarios implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuarios other = (Usuarios) obj;
+		Usuario other = (Usuario) obj;
+		if (correo == null) {
+			if (other.correo != null)
+				return false;
+		} else if (!correo.equals(other.correo))
+			return false;
+		if (id != other.id)
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;

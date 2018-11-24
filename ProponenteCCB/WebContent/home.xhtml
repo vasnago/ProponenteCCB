@@ -9,44 +9,40 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/plantillas/plantilla.xhtml">
 	<ui:define name="body">
-
+		<t:saveState value="#{usuarioAction}"></t:saveState>
 		<h:form>
-			<div class="center">
+			<div>
 				<p:panel header="Login" id="panelLogin" styleClass="login">
 					<t:fieldset>
-						<h:panelGrid columns="4">
+						<h:panelGrid columns="1">
 							<h:outputText value="Usuario:" />
-							<h:outputText value="*" styleClass="requirido" />
 							<p:inputText maxlength="50" id="txtNombreUsuario"
-								value="#{usuariosAction.nombreUsuario}" required="true"
+								value="#{usuarioAction.nombreUsuario}" required="true"
 								requiredMessage="Este Campo Es Requerido">
 								<f:validateLength maximum="50" />
 							</p:inputText>
 							<p:message for="txtNombreUsuario" />
-
+							<br />
 							<h:outputText value="Contraseña:" />
-							<h:outputText value="*" styleClass="requirido" />
-							<p:inputText maxlength="50" id="txtClave"
-								value="#{usuariosAction.password}" required="true"
-								requiredMessage="Este Campo Es Requerido">
-								<f:validateLength maximum="50" />
-							</p:inputText>
+							<p:password maxlength="50" id="txtClave"
+								value="#{usuarioAction.password}" required="true"
+								requiredMessage="Este Campo Es Requerido" />
 							<p:message for="txtClave" />
 
 						</h:panelGrid>
 						<br />
 						<div align="center">
-							<p:commandButton action="#{usuariosAction.validarUsuario()}"
+							<p:commandButton action="#{usuarioAction.validarUsuario()}"
 								value="Ingresar" icon="fa fa-sign-in-alt" update="panelLogin">
 							</p:commandButton>
 						</div>
 					</t:fieldset>
 					<br />
 					<t:fieldset>
-						<h:outputText value="No Tienes Usuario?" />
+						<h:outputText value="No Tienes Usuario? " />
+						<p:commandLink value="Crear Usuario" immediate="true"
+							action="#{usuarioAction.agregarEditarUsuario(null)}" />
 					</t:fieldset>
-
-
 				</p:panel>
 			</div>
 		</h:form>
