@@ -8,6 +8,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 import co.andrex.proponente.action.ProponenteAction;
@@ -28,6 +30,7 @@ public class UsuarioAction implements Serializable {
 	private String nombreUsuario;
 	private String password;
 	private boolean blogin;
+	private boolean bEdit;
 
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
@@ -69,6 +72,14 @@ public class UsuarioAction implements Serializable {
 		this.blogin = blogin;
 	}
 
+	public boolean isbEdit() {
+		return bEdit;
+	}
+
+	public void setbEdit(boolean bEdit) {
+		this.bEdit = bEdit;
+	}
+
 	public String inicializarBusqueda() {
 		return consultarUsuarios();
 	}
@@ -84,22 +95,25 @@ public class UsuarioAction implements Serializable {
 		return "gesUsuario";
 	}
 
+	/**
+	 * @return
+	 */
 	public String validarUsuario() {
 		String retorno = "";
 		this.usuario = new Usuario();
 		ProponenteAction proponenteAction = (ProponenteAction) ControladorContexto
 				.getContextBean(ProponenteAction.class);
 		try {
-			this.usuario = usuariosDao.usuarioExiste("ANDRES", "123ABC");
-
+			this.usuario = usuariosDao.usuarioExiste(
+					this.nombreUsuario.toUpperCase(),
+					this.password.toUpperCase());
+			// this.usuario = usuariosDao.usuarioExiste("ANDRES", "123ABC");
 			if (this.usuario != null) {
 				retorno = proponenteAction.consultarProponentes();
 				this.setBlogin(true);
 			} else {
-				FacesContext.getCurrentInstance().addMessage(
-						"txtClave",
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",
-								"Contact admin."));
+				ControladorContexto.mensajeError(null, "formLogin:message",
+						"Credenciales Invalidas");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,6 +126,9 @@ public class UsuarioAction implements Serializable {
 	 * @return
 	 */
 	public String agregarEditarUsuario(Usuario usuario) {
+		String otraGestion = ControladorContexto.getParam("param2");
+		setbEdit((otraGestion != null && "si".equals(otraGestion)) ? true
+				: false);
 		if (usuario != null) {
 			this.usuario = usuario;
 		} else {
@@ -123,12 +140,58 @@ public class UsuarioAction implements Serializable {
 	/**
 	 * @return
 	 */
+	public String logOut() {
+		this.blogin = false;
+		this.bEdit = false;
+		this.nombreUsuario = "";
+		this.password = "";
+		this.usuario = new Usuario();
+		return "home";
+	}
+
+	/**
+	 * @return
+	 */
 	public String guardarUsuario() {
+		ProponenteAction proponenteAction = (ProponenteAction) ControladorContexto
+				.getContextBean(ProponenteAction.class);
+		String retorno = bEdit ? proponenteAction.consultarProponentes()
+				: "home";
 		try {
-			this.usuariosDao.guardarUsuario(this.usuario);
+			if (this.usuario.getId() == 0) {
+				this.usuariosDao.guardarUsuario(this.usuario);
+			} else {
+				this.usuariosDao.editarUsuario(this.usuario);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "home";
+		return retorno;
 	}
+
+	/**
+	 * @param contexto
+	 * @param toValidate
+	 * @param value
+	 */
+	public void validarNombre(FacesContext contexto, UIComponent toValidate,
+			Object value) {
+		String nombre = (String) value;
+		String clientId = toValidate.getClientId(contexto);
+		try {
+			int id = this.usuario.getId();
+			Usuario usuarioTemp = new Usuario();
+			usuarioTemp = usuariosDao.nombreExisteUsuario(nombre, id);
+			if (usuarioTemp != null) {
+				String mensaje = "Ya existe el usuario: " + nombre;
+
+				contexto.addMessage(clientId, new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje, null));
+				((UIInput) toValidate).setValid(false);
+			}
+		} catch (Exception e) {
+			ControladorContexto.mensajeError(e);
+		}
+	}
+
 }

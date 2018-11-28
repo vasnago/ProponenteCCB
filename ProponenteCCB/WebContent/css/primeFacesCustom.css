@@ -12,7 +12,8 @@
 }
 
 .ui-menuitem-text {
-	font-size: 14px;
+	font-size: 13px;
+	font-weight: bold;
 }
 
 .ui-corner-all {
@@ -36,5 +37,10 @@
 .ui-button .ui-button-text {
 	display: block;
 	line-height: normal;
-	margin-left: -6px;
+	margin-left: -4px;
+}
+
+.companyHeaderGrid.ui-panelgrid>*>tr,.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell
+	{
+	border: none;
 }

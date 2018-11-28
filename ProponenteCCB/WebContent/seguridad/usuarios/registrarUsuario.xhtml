@@ -40,24 +40,29 @@
 						<h:outputText value="*" />
 						<p:inputText maxlength="100" id="txtUsuario"
 							value="#{usuarioAction.usuario.usuario}" required="true"
-							requiredMessage="Este Campo Es Requerido">
+							requiredMessage="Este Campo Es Requerido"
+							validator="#{usuarioAction.validarNombre}">
 							<f:validateLength maximum="10" />
 						</p:inputText>
 						<p:message for="txtUsuario" />
 
 
-						<h:outputText value="Password" />
-						<h:outputText value="*" />
+						<h:outputText value="Password" rendered="#{!usuarioAction.bEdit}" />
+						<h:outputText value="*" rendered="#{!usuarioAction.bEdit}" />
 						<p:password id="pwd1" value="#{usuarioAction.usuario.password}"
 							match="pwd2" label="Password" required="true"
-							requiredMessage="Este Campo Es Requerido" />
-						<p:message for="pwd1" />
+							requiredMessage="Este Campo Es Requerido"
+							rendered="#{!usuarioAction.bEdit}"
+							validatorMessage="Los Passwords no son iguales" />
+						<p:message for="pwd1" rendered="#{!usuarioAction.bEdit}" />
 
-						<h:outputText value="Validar Password" />
-						<h:outputText value="*" />
+						<h:outputText value="Validar Password"
+							rendered="#{!usuarioAction.bEdit}" />
+						<h:outputText value="*" rendered="#{!usuarioAction.bEdit}" />
 						<p:password id="pwd2" value="#{usuarioAction.usuario.password}"
-							required="true" requiredMessage="Este Campo Es Requerido" />
-						<p:message for="pwd2" />
+							required="true" requiredMessage="Este Campo Es Requerido"
+							rendered="#{!usuarioAction.bEdit}" label="Password Validador" />
+						<p:message for="pwd2" rendered="#{!usuarioAction.bEdit}" />
 
 						<h:outputText value="Es Abogado?" />
 						<h:outputText value="" />

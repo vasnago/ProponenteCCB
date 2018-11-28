@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import co.andrex.proponente.dao.TipoJuridicoDao;
 import co.andrex.proponente.entities.TipoJuridico;
+import co.andrex.utils.util.ControladorContexto;
 
 /**
  * @author ANDREXG
@@ -74,7 +76,7 @@ public class TipoJuridicoAction implements Serializable {
 		} else {
 			this.tipoJuridico = new TipoJuridico();
 		}
-		return "regUsuario";
+		return "regTipoJuridico";
 	}
 
 	/**
@@ -82,9 +84,30 @@ public class TipoJuridicoAction implements Serializable {
 	 */
 	public String guardarTipoJuridico() {
 		try {
-			this.tipoJuridicoDao.guardarTipoJuridico(this.tipoJuridico);
+			if (this.tipoJuridico.getId() == 0) {
+				tipoJuridicoDao.guardarTipoJuridico(this.tipoJuridico);
+			} else {
+				tipoJuridicoDao.editarTipoJuridico(this.tipoJuridico);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return consultarTipoJuridico();
+	}
+
+	/**
+	 * @param tj
+	 * @return
+	 */
+	public String eliminarTJuridico(TipoJuridico tj) {
+		try {
+			tipoJuridicoDao.eliminarTipoJuridico(tj);
+		} catch (EJBException e) {
+			ControladorContexto.mensajeError(e, null,
+					"El tipo Juridico: " + tj.getNombre()
+							+ " Esta siendo utilizado.");
+		} catch (Exception e) {
+			ControladorContexto.mensajeError(e);
 		}
 		return consultarTipoJuridico();
 	}

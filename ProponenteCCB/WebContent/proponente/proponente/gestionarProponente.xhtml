@@ -8,8 +8,6 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/plantillas/plantilla.xhtml">
-
-
 	<ui:define name="body">
 		<h:form id="proponenteForm">
 			<t:saveState value="#{proponenteAction}" />
@@ -17,11 +15,24 @@
 			<p:panel header="Lista de proponentes" id="panelproponente">
 				<p:dataTable value="#{proponenteAction.listaProponentes}"
 					var="proponenteList" rowClasses="odd-row, even-row">
+					<p:column styleClass="colIconoUno">
+						<p:commandButton icon="fa fa-trash-alt" immediate="true"
+							update="proponenteForm" id="eliminar"
+							action="#{proponenteAction.eliminarProponente(proponenteList)}">
+							<p:confirm header="Confirmacion" message="Esta Seguro?"
+								icon="fa fa-question-circle" />
+						</p:commandButton>
+						<p:tooltip id="toolTipGrow" for="eliminar" value="Eliminar"
+							showEffect="clip" hideEffect="explode" position="right" />
+					</p:column>
 					<p:column>
 						<f:facet name="header">Registro</f:facet>
-						<p:commandLink value="#{proponenteList.registro}"
+						<p:commandLink value="#{proponenteList.registro}" id="editar"
 							action="#{proponenteAction.agregarEditarProponente(proponenteList)}">
 						</p:commandLink>
+						<p:tooltip id="toolTipGrow2" for="editar" value="Editar"
+							showEffect="clip" hideEffect="explode" position="left" />
+
 					</p:column>
 
 					<p:column>
@@ -50,6 +61,12 @@
 					</p:column>
 				</p:dataTable>
 			</p:panel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

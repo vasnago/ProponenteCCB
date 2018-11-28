@@ -8,11 +8,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/plantillas/plantilla.xhtml">
+
 	<ui:define name="body">
 		<t:saveState value="#{usuarioAction}"></t:saveState>
-		<h:form>
+		<h:form id="formLogin">
 			<div>
 				<p:panel header="Login" id="panelLogin" styleClass="login">
+					<p:messages id="message" closable="true" />
 					<t:fieldset>
 						<h:panelGrid columns="1">
 							<h:outputText value="Usuario:" />

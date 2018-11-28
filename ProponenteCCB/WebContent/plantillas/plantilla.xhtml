@@ -18,15 +18,18 @@
 </h:head>
 
 <h:body>
-	<t:saveState value="#{usuariosAction}" />
+	<t:saveState value="#{usuarioAction}" />
 	<ui:include src="encabezado.xhtml">
 	</ui:include>
+
 	<div class="menuBoard">
 		<ui:include src="menu.xhtml">
 		</ui:include>
-
 	</div>
-
+	<div style="display: -webkit-inline-box;">
+		<h:messages id="mensajes" globalOnly="true" styleClass="message"
+			errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg" />
+	</div>
 	<div class="bodyBoard">
 		<ui:insert name="body" />
 	</div>

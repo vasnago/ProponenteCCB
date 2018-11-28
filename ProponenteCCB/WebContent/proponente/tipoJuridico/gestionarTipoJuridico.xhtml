@@ -17,20 +17,40 @@
 			<p:panel header="Lista de tipos Juridicos" id="paneltipoJuridico">
 				<p:dataTable value="#{tipoJuridicoAction.listTipoJuridico}"
 					var="tipoJuridicoList" rowClasses="odd-row, even-row">
+					<p:column styleClass="colIconoUno">
+						<p:commandButton icon="fa fa-trash-alt" immediate="true"
+							update="tipoJuridicoForm, mensajes" id="eliminar"
+							action="#{tipoJuridicoAction.eliminarTJuridico(tipoJuridicoList)}">
+							<p:confirm header="Confirmacion" message="Esta Seguro?"
+								icon="fa fa-question-circle" />
+						</p:commandButton>
+						<p:tooltip id="toolTipGrow" for="eliminar" value="Eliminar"
+							showEffect="clip" hideEffect="explode" position="right" />
+					</p:column>
 					<p:column>
 						<f:facet name="header">Codigo</f:facet>
-						<h:outputText value="#{tipoJuridicoList.id}" />
+						<p:commandLink value="#{tipoJuridicoList.id}" id="editar"
+							action="#{tipoJuridicoAction.agregarEditarTipoJuridico(tipoJuridicoList)}">
+						</p:commandLink>
+						<p:tooltip id="toolTipGrow2" for="editar" value="Editar"
+							showEffect="clip" hideEffect="explode" position="left" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">Nombre</f:facet>
 						<h:outputText value="#{tipoJuridicoList.nombre}" />
 					</p:column>
 					<p:column>
-						<f:facet name="header">Nombre</f:facet>
+						<f:facet name="header">Descripcion</f:facet>
 						<h:outputText value="#{tipoJuridicoList.descripcion}" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

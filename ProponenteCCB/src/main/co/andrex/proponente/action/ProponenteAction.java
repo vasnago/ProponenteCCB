@@ -137,4 +137,16 @@ public class ProponenteAction implements Serializable {
 		}
 		return consultarProponentes();
 	}
+
+	/**
+	 * @param p
+	 */
+	public String eliminarProponente(Proponente p) {
+		try {
+			proponenteDao.eliminarProponente(p);
+		} catch (Exception e) {
+			ControladorContexto.mensajeError(e);
+		}
+		return consultarProponentes();
+	}
 }

@@ -115,7 +115,6 @@ public class ControladorContexto implements Serializable {
 
 	public static void mensajeError(Exception e, String formAMostrarMensaje,
 			String mensajeAMostrar) {
-		ResourceBundle bundle = getBundle("mensaje");
 		if (e != null) {
 			Parametros.getLog().error(
 					Parametros.getExceptionStackTraceAsString(e));
@@ -124,7 +123,7 @@ public class ControladorContexto implements Serializable {
 			formAMostrarMensaje = null;
 		}
 		if ((mensajeAMostrar == null) || (mensajeAMostrar.equals(""))) {
-			mensajeAMostrar = bundle.getString("message_error");
+			mensajeAMostrar = "En este momento no fue posible realizar la transacci\u00F3n. Por favor intente m\u00E1s tarde.";
 		}
 		getFacesContext().addMessage(
 				formAMostrarMensaje,

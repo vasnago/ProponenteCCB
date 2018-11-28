@@ -6,8 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-
-	<h:form rendered="#{usuariosAction.blogin}">
+	<h:form rendered="#{usuarioAction.blogin}">
 		<div class="menuBoard">
 			<p:menubar>
 				<p:submenu style="font-size: 14px;" label="Proponentes"
@@ -31,7 +30,16 @@
 
 				<f:facet name="options">
 					<p:inputText style="margin:1px 10px 1px 1px;" placeholder="Buscar" />
-					<p:commandButton type="button" icon="fa fa-home"/>
+					<p:commandButton icon="fa fa-cog"
+						value="#{usuarioAction.usuario.usuario}"
+						action="#{usuarioAction.agregarEditarUsuario(usuarioAction.usuario)}"
+						immediate="true">
+						<f:param name="param2" value="si" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-sign-out-alt" id="salir"
+						action="#{usuarioAction.logOut}" immediate="true" />
+					<p:tooltip id="toolTipGrow" for="salir" value="Cerrar Sesion"
+						showEffect="clip" hideEffect="explode" position="left" />
 				</f:facet>
 			</p:menubar>
 		</div>

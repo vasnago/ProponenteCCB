@@ -27,7 +27,8 @@ public class ProponenteDao implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Proponente> consultarProponente() throws Exception {
-		Query q = em.createQuery("SELECT p FROM Proponente p");
+		Query q = em
+				.createQuery("SELECT p FROM Proponente p Order by p.registro");
 		return q.getResultList();
 	}
 
@@ -45,6 +46,14 @@ public class ProponenteDao implements Serializable {
 	 */
 	public void editarProponente(Proponente proponente) throws Exception {
 		em.merge(proponente);
+	}
+
+	/**
+	 * @param proponente
+	 * @throws Exception
+	 */
+	public void eliminarProponente(Proponente proponente) throws Exception {
+		em.remove(em.merge(proponente));
 	}
 
 	/**
